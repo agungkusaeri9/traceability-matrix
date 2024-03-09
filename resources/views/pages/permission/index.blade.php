@@ -29,7 +29,8 @@
                                             <td>
                                                 @can('Permission Edit')
                                                     <a href="{{ route('permissions.edit', $item->id) }}"
-                                                        class="btn btn-sm py-2 btn-info">Edit</a>
+                                                        class="btn btn-sm py-2 btn-info"><i
+                                                            class="typcn typcn-edit menu-icon"></i></a>
                                                 @endcan
                                                 @can('Permission Delete')
                                                     <form action="javascript:void(0)" method="post" class="d-inline"
@@ -37,7 +38,8 @@
                                                         @csrf
                                                         @method('delete')
                                                         <button class="btn btnDelete btn-sm py-2 btn-danger"
-                                                            data-action="{{ route('permissions.destroy', $item->id) }}">Hapus</button>
+                                                            data-action="{{ route('permissions.destroy', $item->id) }}"><i
+                                                                class="typcn typcn-delete-outline menu-icon"></i></button>
                                                     </form>
                                                 @endcan
                                             </td>

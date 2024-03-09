@@ -39,6 +39,9 @@
                                                     <a href="{{ route('project.edit', $item->uuid) }}"
                                                         class="btn btn-sm py-2 btn-info"> <i
                                                             class="typcn typcn-edit menu-icon"></i></a>
+                                                    <a href="{{ route('project-team.index', $item->uuid) }}"
+                                                        class="btn btn-sm py-2 btn-success"> <i
+                                                            class="typcn typcn-user-add-outline menu-icon"></i></a>
                                                 @endcan
                                                 @can('Project Delete')
                                                     <form action="javascript:void(0)" method="post" class="d-inline"
@@ -47,7 +50,7 @@
                                                         @method('delete')
                                                         <button class="btn btnDelete btn-sm py-2 btn-danger"
                                                             data-action="{{ route('project.destroy', $item->uuid) }}">
-                                                            <i class="typcn typcn-delete menu-icon"></i></button>
+                                                            <i class="typcn typcn-delete-outline menu-icon"></i></button>
                                                     </form>
                                                 @endcan
                                             </td>

@@ -34,6 +34,11 @@ class Project extends Model
         return '10%';
     }
 
+    public function teams()
+    {
+        return $this->hasMany(ProjectTeam::class, 'project_id', 'id');
+    }
+
     public static function boot()
     {
         parent::boot();

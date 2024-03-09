@@ -42,7 +42,8 @@
                                                 @if ($user->id != auth()->id())
                                                     @can('User Edit')
                                                         <a href="{{ route('users.edit', $user->id) }}"
-                                                            class="btn btn-sm py-2 btn-info">Edit</a>
+                                                            class="btn btn-sm py-2 btn-info"><i
+                                                                class="typcn typcn-edit menu-icon"></i></a>
                                                     @endcan
                                                     @can('User Delete')
                                                         <form action="javascript:void(0)" method="post" class="d-inline"
@@ -50,7 +51,8 @@
                                                             @csrf
                                                             @method('delete')
                                                             <button class="btn btnDelete btn-sm py-2 btn-danger"
-                                                                data-action="{{ route('users.destroy', $user->id) }}">Hapus</button>
+                                                                data-action="{{ route('users.destroy', $user->id) }}"><i
+                                                                    class="typcn typcn-delete-outline menu-icon"></i></button>
                                                         </form>
                                                     @endcan
                                                 @else
