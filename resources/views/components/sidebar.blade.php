@@ -23,10 +23,22 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('project.index') }}">
+            <a class="nav-link" data-toggle="collapse" href="#m_project" aria-expanded="false"
+                aria-controls="m_project">
                 <i class="typcn typcn-th-small-outline menu-icon"></i>
-                <span class="menu-title">Project</span>
+                <span class="menu-title">Manajemen Project</span>
+                <i class="typcn typcn-chevron-right menu-arrow"></i>
             </a>
+            <div class="collapse" id="m_project">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('project.index') }}">Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('fitur.index') }}">Fitur</a>
+                    </li>
+                </ul>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FiturController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -42,4 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/project/{project_uuid}/team/create', 'store')->name('project-team.store');
         Route::delete('/project/{uuid}/team/delete', 'destroy')->name('project-team.destroy');
     });
+
+    // fitur
+    Route::resource('fitur', FiturController::class)->except('show');
 });

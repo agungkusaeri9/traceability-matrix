@@ -10,7 +10,7 @@
                             Project</a>
                     @endcan
                     <div class="table-responsive">
-                        <table class="table dtTable table-hover">
+                        <table class="table nowrap dtTable table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -39,10 +39,15 @@
                                                     <a href="{{ route('project.edit', $item->uuid) }}"
                                                         class="btn btn-sm py-2 btn-info"> <i
                                                             class="typcn typcn-edit menu-icon"></i></a>
-                                                    <a href="{{ route('project-team.index', $item->uuid) }}"
-                                                        class="btn btn-sm py-2 btn-success"> <i
-                                                            class="typcn typcn-user-add-outline menu-icon"></i></a>
                                                 @endcan
+                                                <a href="{{ route('project-team.index', $item->uuid) }}"
+                                                    class="btn btn-sm py-2 btn-success" title="Tim"> <i
+                                                        class="typcn typcn-user-add-outline menu-icon"></i></a>
+                                                <a href="{{ route('fitur.index', [
+                                                    'project_uuid' => $item->uuid,
+                                                ]) }}"
+                                                    title="Fitur" class="btn btn-sm py-2 btn-secondary"> <i
+                                                        class="typcn typcn-star-outline menu-icon"></i></a>
                                                 @can('Project Delete')
                                                     <form action="javascript:void(0)" method="post" class="d-inline"
                                                         id="formDelete">
