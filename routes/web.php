@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('roles', RoleController::class)->except('show');
     // permissions
     Route::resource('permissions', PermissionController::class)->except('show');
+    // project
+    Route::resource('project', ProjectController::class)->except('show');
 });
