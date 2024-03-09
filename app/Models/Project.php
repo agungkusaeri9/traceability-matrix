@@ -39,6 +39,11 @@ class Project extends Model
         return $this->hasMany(ProjectTeam::class, 'project_id', 'id');
     }
 
+    public function fitur()
+    {
+        return $this->hasMany(Fitur::class, 'project_id', 'id');
+    }
+
     public static function boot()
     {
         parent::boot();

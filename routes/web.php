@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectTeamController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SkenarioController;
+use App\Http\Controllers\TestCaseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,4 +48,8 @@ Route::middleware('auth')->group(function () {
 
     // fitur
     Route::resource('fitur', FiturController::class)->except('show');
+    // skenario
+    Route::resource('skenario', SkenarioController::class)->except('show');
+    // test-case
+    Route::resource('test-case', TestCaseController::class)->except('show');
 });

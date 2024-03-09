@@ -5,15 +5,26 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-5">Edit Fitur</h4>
-                    <form action="{{ route('fitur.update', $item->uuid) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('skenario.update', $item->uuid) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('patch')
                         <div class='form-group mb-3'>
                             <label for='nama_project' class='mb-2'>Project</label>
-                            <input type='text' name='nama_project'
+                            <input type='text' name='nama_project' id='nama_project'
                                 class='form-control @error('nama_project') is-invalid @enderror'
-                                value='{{ $item->project->nama ?? old('nama_project') }}' readonly>
+                                value='{{ $item->fitur->project->nama ?? old('nama_project') }}' readonly>
                             @error('nama_project')
+                                <div class='invalid-feedback'>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class='form-group mb-3'>
+                            <label for='nama_fitur' class='mb-2'>Fitur</label>
+                            <input type='text' name='nama_fitur' id='nama_fitur'
+                                class='form-control @error('nama_fitur') is-invalid @enderror'
+                                value='{{ $item->fitur->nama ?? old('nama_fitur') }}' readonly>
+                            @error('nama_fitur')
                                 <div class='invalid-feedback'>
                                     {{ $message }}
                                 </div>
@@ -30,7 +41,7 @@
                             @enderror
                         </div>
                         <div class="form-group text-right">
-                            <a href="{{ route('fitur.index') }}" class="btn btn-warning">Batal</a>
+                            <a href="{{ route('skenario.index') }}" class="btn btn-warning">Batal</a>
                             <button class="btn btn-primary">Update Fitur</button>
                         </div>
                     </form>

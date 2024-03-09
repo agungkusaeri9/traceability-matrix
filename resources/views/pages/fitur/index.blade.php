@@ -41,20 +41,21 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title mb-3">Fitur</h4>
-                    @can('Fitur Create')
-                        <a href="{{ route('fitur.create', [
-                            'project_uuid' => $project_uuid ?? null,
-                        ]) }}"
-                            class="btn my-2 mb-3 btn-sm py-2 btn-primary">Tambah
-                            Fitur</a>
-                    @endcan
+                    @if (request('project_uuid'))
+                        @can('Fitur Create')
+                            <a href="{{ route('fitur.create', [
+                                'project_uuid' => $project->uuid ?? null,
+                            ]) }}"
+                                class="btn my-2 mb-3 btn-sm py-2 btn-primary">Tambah
+                                Fitur</a>
+                        @endcan
+                    @endif
                     <div class="table-responsive">
                         <table class="table dtTable table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Fitur</th>
-                                    <th>Project</th>
                                     @canany(['Fitur Edit', 'Fitur Delete'])
                                         <th>Aksi</th>
                                     @endcanany
@@ -65,9 +66,15 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->project->nama }}</td>
                                         @canany(['Fitur Edit', 'Fitur Delete'])
                                             <td>
+                                                @can('Skenario Fitir Index')
+                                                    <a href="{{ route('skenario.index', [
+                                                        'fitur_uuid' => $item->uuid,
+                                                    ]) }}"
+                                                        class="btn btn-sm py-2 btn-warning" title="Skenario"><i
+                                                            class="typcn typcn-flow-switch menu-icon"></i></a>
+                                                @endcan
                                                 @can('Fitur Edit')
                                                     <a href="{{ route('fitur.edit', $item->uuid) }}"
                                                         class="btn btn-sm py-2 btn-info"><i

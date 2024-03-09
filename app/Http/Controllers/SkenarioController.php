@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fitur;
-use App\Models\Project;
+use App\Models\Skenario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class FiturController extends Controller
+class SkenarioController extends Controller
 {
     public function __construct()
     {
@@ -19,29 +19,21 @@ class FiturController extends Controller
 
     public function index()
     {
-        $project = Project::where('uuid', request('project_uuid'))->first();
-        if ($project) {
-            $items = Fitur::where('project_id', $project->id)->orderBy('nama', 'ASC')->get();
-        } else {
-            $items = [];
-        }
-        $data_project = Project::orderBy('nama', 'ASC')->get();
-        return view('pages.fitur.index', [
+        $fitur = Fitur::where('uuid', request('fitur_uuid'))->firstOrFail();
+        $items = Skenario::where('fitur_id', $fitur->id)->orderBy('nama', 'ASC')->get();
+        return view('pages.skenario.index', [
             'title' => 'Fitur',
             'items' => $items,
-            'project' => $project,
-            'data_project' => $data_project
+            'fitur' => $fitur
         ]);
     }
 
     public function create()
     {
-        $project = Project::where('uuid', request('project_uuid'))->firstOrFail();
-        $data_project = Project::orderBy('nama', 'ASC')->get();
-        return view('pages.fitur.create', [
+        $fitur = Fitur::where('uuid', request('fitur_uuid'))->firstOrFail();
+        return view('pages.skenario.create', [
             'title' => 'Tambah Fitur',
-            'data_project' => $data_project,
-            'project' => $project
+            'fitur' => $fitur
         ]);
     }
 
@@ -50,16 +42,19 @@ class FiturController extends Controller
         request()->validate([
             'nama' => ['required'],
         ]);
-        $project = Project::where('uuid', request('project_uuid'))->first();
+
         DB::beginTransaction();
         try {
+            $fitur = Fitur::where('uuid', request('fitur_uuid'))->firstOrFail();
+
             $data = request()->only(['nama']);
-            $data['project_id'] = $project->id;
-            Fitur::create($data);
+            $data['fitur_id'] = $fitur->id;
+
+            Skenario::create($data);
             DB::commit();
-            return redirect()->route('fitur.index', [
-                'project_uuid' => $project->uuid
-            ])->with('success', 'Fitur berhasil ditambahkan.');
+            return redirect()->route('skenario.index', [
+                'fitur_uuid' => $fitur->uuid
+            ])->with('success', 'Skenario berhasil ditambahkan.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
@@ -69,10 +64,10 @@ class FiturController extends Controller
 
     public function edit($uuid)
     {
-        $item = Fitur::where('uuid', $uuid)->firstOrFail();
-        return view('pages.fitur.edit', [
+        $item = Skenario::where('uuid', $uuid)->firstOrFail();
+        return view('pages.skenario.edit', [
             'title' => 'Edit Fitur',
-            'item' => $item
+            'item' => $item,
         ]);
     }
 
@@ -84,14 +79,14 @@ class FiturController extends Controller
 
         DB::beginTransaction();
         try {
-            $item = Fitur::where('uuid', $uuid)->firstOrFail();
+            $item = Skenario::where('uuid', $uuid)->firstOrFail();
             $data = request()->only(['nama']);
             $item->update($data);
 
             DB::commit();
-            return redirect()->route('fitur.index', [
-                'project_uuid' => $item->project->uuid
-            ])->with('success', 'Fitur berhasil diupdate.');
+            return redirect()->route('skenario.index', [
+                'fitur_uuid' => $item->fitur->uuid
+            ])->with('success', 'Skenario berhasil diupdate.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
@@ -104,13 +99,13 @@ class FiturController extends Controller
 
         DB::beginTransaction();
         try {
-            $item = Fitur::where('uuid', $uuid)->firstOrFail();
-            $project_uuid = $item->project->uuid;
+            $item = Skenario::where('uuid', $uuid)->firstOrFail();
+            $fitur_uuid = $item->fitur->uuid;
             $item->delete();
             DB::commit();
-            return redirect()->route('fitur.index', [
-                'project_uuid' => $project_uuid
-            ])->with('success', 'Fitur berhasil dihapus.');
+            return redirect()->route('skenario.index', [
+                'fitur_uuid' => $fitur_uuid
+            ])->with('success', 'Skenario berhasil dihapus.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
