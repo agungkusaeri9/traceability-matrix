@@ -53,7 +53,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('skenario', SkenarioController::class)->except('show');
     // test-case
     Route::resource('test-case', TestCaseController::class)->except('show');
+    Route::get('test-case/{uuid}/isi', [TestCaseController::class, 'isi'])->name('test-case.isi');
+    Route::post('test-case/{uuid}/isi', [TestCaseController::class, 'proses_isi'])->name('test-case.proses-isi');
 
     // test-step
     Route::resource('test-step', TestStepController::class)->except('show');
+    Route::get('test-step/{uuid}/isi', [TestStepController::class, 'isi'])->name('test-step.isi');
+    Route::post('test-step/{uuid}/isi', [TestStepController::class, 'proses_isi'])->name('test-step.proses-isi');
 });

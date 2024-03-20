@@ -82,9 +82,14 @@
                                         <td>{{ $item->expected_behavior }}</td>
                                         <td>{{ $item->test_result }}</td>
                                         <td>{{ $item->date }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td>{!! $item->status() !!}</td>
                                         @canany(['Test Step Edit', 'Test Step Delete'])
                                             <td>
+                                                @can('Test Step Isi')
+                                                    <a href="{{ route('test-step.isi', $item->uuid) }}"
+                                                        class="btn btn-sm py-2 btn-primary"><i
+                                                            class="typcn typcn-pencil menu-icon"></i></a>
+                                                @endcan
                                                 @can('Test Step Edit')
                                                     <a href="{{ route('test-step.edit', $item->uuid) }}"
                                                         class="btn btn-sm py-2 btn-info"><i

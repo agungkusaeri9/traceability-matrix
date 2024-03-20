@@ -113,4 +113,36 @@ class TestCaseController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function isi($uuid)
+    {
+        $item = TestCase::where('uuid', $uuid)->firstOrFail();
+        return view('pages.test-case.isi', [
+            'title' => 'Isi Test Case',
+            'item' => $item,
+        ]);
+    }
+
+    public function proses_isi($uuid)
+    {
+        request()->validate([
+            'status' => ['required'],
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $item = TestCase::where('uuid', $uuid)->firstOrFail();
+            $data = request()->only(['status']);
+            $item->update($data);
+
+            DB::commit();
+            return redirect()->route('test-case.index', [
+                'skenario_uuid' => $item->skenario->uuid
+            ])->with('success', 'Test Case Berhasil Disubmit.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            // throw $th;
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
 }

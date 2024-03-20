@@ -40,11 +40,7 @@ class TestStepController extends Controller
     public function store()
     {
         request()->validate([
-            'test_step' => ['required'],
-            'test_data' => ['required'],
-            'expected_behavior' => ['required'],
-            'test_result' => ['required'],
-            'date' => ['required']
+            'test_step' => ['required']
         ]);
         DB::beginTransaction();
         try {
@@ -52,7 +48,7 @@ class TestStepController extends Controller
 
             $data = request()->all();
             $data['test_case_id'] = $test_case->id;
-
+            $data['status'] = 0;
             TestStep::create($data);
             DB::commit();
             return redirect()->route('test-step.index', [
@@ -77,11 +73,7 @@ class TestStepController extends Controller
     public function update($uuid)
     {
         request()->validate([
-            'test_step' => ['required'],
-            'test_data' => ['required'],
-            'expected_behavior' => ['required'],
-            'test_result' => ['required'],
-            'date' => ['required']
+            'test_step' => ['required']
         ]);
 
         DB::beginTransaction();
@@ -112,6 +104,42 @@ class TestStepController extends Controller
             return redirect()->route('test-step.index', [
                 'test_case_uuid' => $test_case_uuid
             ])->with('success', 'Test Step berhasil dihapus.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            // throw $th;
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function isi($uuid)
+    {
+        $item = TestStep::where('uuid', $uuid)->firstOrFail();
+        return view('pages.test-step.isi', [
+            'title' => 'Isi Test Step',
+            'item' => $item,
+        ]);
+    }
+
+
+    public function proses_isi($uuid)
+    {
+        request()->validate([
+            'test_data' => ['required'],
+            'expected_behavior' => ['required'],
+            'test_result' => ['required'],
+            'date' => ['required'],
+            'status' => ['required']
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $item = TestStep::where('uuid', $uuid)->firstOrFail();
+            $data = request()->all();
+            $item->update($data);
+            DB::commit();
+            return redirect()->route('test-step.index', [
+                'test_case_uuid' => $item->test_case->uuid
+            ])->with('success', 'Test Case berhasil disubmit.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;

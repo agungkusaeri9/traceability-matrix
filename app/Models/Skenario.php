@@ -25,4 +25,9 @@ class Skenario extends Model
             $model->uuid = (string) Uuid::generate(4);
         });
     }
+
+    public function test_case()
+    {
+        return $this->hasMany(TestCase::class, 'skenario_id', 'id');
+    }
 }

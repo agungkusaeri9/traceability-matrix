@@ -17,6 +17,16 @@ class TestStep extends Model
         return $this->belongsTo(TestCase::class);
     }
 
+    public function status()
+    {
+        if ($this->status == 0) {
+            return '<span class="badge badge-warning">Not Tested</span>';
+        } elseif ($this->status == 1) {
+            return '<span class="badge badge-success">Success</span>';
+        } else {
+            return '<span class="badge badge-danger">Failed</span>';
+        }
+    }
     public static function boot()
     {
         parent::boot();

@@ -51,11 +51,16 @@
                         @endcan
                     @endif
                     <div class="table-responsive">
-                        <table class="table dtTable table-hover">
+                        <table class="table nowrap dtTable table-hover">
                             <thead>
                                 <tr>
                                     <th>No.</th>
                                     <th>Nama Fitur</th>
+                                    <th>Skenario</th>
+                                    <th>Test Case</th>
+                                    <th>Success</th>
+                                    <th>Failed</th>
+                                    <th>Not Tested</th>
                                     @canany(['Fitur Edit', 'Fitur Delete'])
                                         <th>Aksi</th>
                                     @endcanany
@@ -66,6 +71,11 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->skenario->count() }}</td>
+                                        <td>{{ $item->skenario->count('test_case') }}</td>
+                                        <td>0%</td>
+                                        <td>0%</td>
+                                        <td>0%</td>
                                         @canany(['Fitur Edit', 'Fitur Delete'])
                                             <td>
                                                 @can('Skenario Fitir Index')
