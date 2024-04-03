@@ -41,6 +41,7 @@ class TestCaseController extends Controller
     {
         request()->validate([
             'nama' => ['required'],
+            'tipe' => ['required']
         ]);
 
 
@@ -48,14 +49,14 @@ class TestCaseController extends Controller
         try {
             $skenario = Skenario::where('uuid', request('skenario_uuid'))->firstOrFail();
 
-            $data = request()->only(['nama']);
+            $data = request()->only(['nama', 'tipe', 'link']);
             $data['skenario_id'] = $skenario->id;
 
             TestCase::create($data);
             DB::commit();
             return redirect()->route('test-case.index', [
                 'skenario_uuid' => $skenario->uuid
-            ])->with('success', 'Skenario berhasil ditambahkan.');
+            ])->with('success', 'Test Case berhasil ditambahkan.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
@@ -76,18 +77,19 @@ class TestCaseController extends Controller
     {
         request()->validate([
             'nama' => ['required'],
+            'tipe' => ['required']
         ]);
 
         DB::beginTransaction();
         try {
             $item = TestCase::where('uuid', $uuid)->firstOrFail();
-            $data = request()->only(['nama']);
+            $data = request()->only(['nama', 'tipe', 'link']);
             $item->update($data);
 
             DB::commit();
             return redirect()->route('test-case.index', [
                 'skenario_uuid' => $item->skenario->uuid
-            ])->with('success', 'Skenario berhasil diupdate.');
+            ])->with('success', 'Test Case berhasil diupdate.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
@@ -106,39 +108,7 @@ class TestCaseController extends Controller
             DB::commit();
             return redirect()->route('test-case.index', [
                 'skenario_uuid' => $skenario_uuid
-            ])->with('success', 'Skenario berhasil dihapus.');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            // throw $th;
-            return redirect()->back()->with('error', $th->getMessage());
-        }
-    }
-
-    public function isi($uuid)
-    {
-        $item = TestCase::where('uuid', $uuid)->firstOrFail();
-        return view('pages.test-case.isi', [
-            'title' => 'Isi Test Case',
-            'item' => $item,
-        ]);
-    }
-
-    public function proses_isi($uuid)
-    {
-        request()->validate([
-            'status' => ['required'],
-        ]);
-
-        DB::beginTransaction();
-        try {
-            $item = TestCase::where('uuid', $uuid)->firstOrFail();
-            $data = request()->only(['status']);
-            $item->update($data);
-
-            DB::commit();
-            return redirect()->route('test-case.index', [
-                'skenario_uuid' => $item->skenario->uuid
-            ])->with('success', 'Test Case Berhasil Disubmit.');
+            ])->with('success', 'Test Case berhasil dihapus.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;

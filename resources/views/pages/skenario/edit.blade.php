@@ -41,7 +41,10 @@
                             @enderror
                         </div>
                         <div class="form-group text-right">
-                            <a href="{{ route('skenario.index') }}" class="btn btn-warning">Batal</a>
+                            <a href="{{ route('skenario.index', [
+                                'fitur_uuid' => $item->fitur->uuid,
+                            ]) }}"
+                                class="btn btn-warning">Batal</a>
                             <button class="btn btn-primary">Update Fitur</button>
                         </div>
                     </form>

@@ -50,7 +50,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Skenario</th>
-                                    @canany(['Skenario Edit', 'Skenario Delete'])
+                                    @canany(['Skenario Edit', 'Skenario Delete', 'Test Case Index'])
                                         <th>Aksi</th>
                                     @endcanany
                                 </tr>
@@ -60,7 +60,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        @canany(['Skenario Edit', 'Skenario Delete'])
+                                        @canany(['Skenario Edit', 'Skenario Delete', 'Test Case Index'])
                                             <td>
                                                 @can('Test Case Index')
                                                     <a href="{{ route('test-case.index', [

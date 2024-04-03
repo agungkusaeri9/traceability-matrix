@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\BugReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FiturController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectTeamController;
+use App\Http\Controllers\RepositoryController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SkenarioController;
 use App\Http\Controllers\TestCaseController;
@@ -48,6 +50,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // fitur
+    Route::get('fitur/getByProjectId', [FiturController::class, 'getByProjectId'])->name('fitur.getByProjectId');
     Route::resource('fitur', FiturController::class)->except('show');
     // skenario
     Route::resource('skenario', SkenarioController::class)->except('show');
@@ -60,4 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('test-step', TestStepController::class)->except('show');
     Route::get('test-step/{uuid}/isi', [TestStepController::class, 'isi'])->name('test-step.isi');
     Route::post('test-step/{uuid}/isi', [TestStepController::class, 'proses_isi'])->name('test-step.proses-isi');
+    Route::get('bug-report/verifikasi', [BugReportController::class, 'verifikasi'])->name('bug-report.verifikasi');
+    Route::resource('bug-report', BugReportController::class);
+    Route::resource('repository', RepositoryController::class);
 });

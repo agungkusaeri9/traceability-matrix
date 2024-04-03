@@ -30,14 +30,12 @@ class TestCase extends Model
         return $this->hasMany(TestStep::class, 'test_case_id', 'id');
     }
 
-    public function status()
+    public function tipe()
     {
-        if ($this->status == 0) {
-            return '<span class="badge badge-warning">Not Tested</span>';
-        } elseif ($this->status == 1) {
-            return '<span class="badge badge-success">Happy</span>';
+        if ($this->tipe === 'Happy Case') {
+            return '<span class="badge badge-success">Happy Case</span>';
         } else {
-            return '<span class="badge badge-danger">UnHappy</span>';
+            return '<span class="badge badge-danger">UnHappy Case</span>';
         }
     }
 

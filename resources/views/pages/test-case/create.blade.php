@@ -54,6 +54,29 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class='form-group'>
+                            <label for='tipe'>Tipe</label>
+                            <select name='tipe' id='tipe' class='form-control @error('tipe') is-invalid @enderror'>
+                                <option value='0' selected>Pilih Tipe</option>
+                                <option @selected(old('tipe') === 'Happy Case') value="Happy Case">Happy</option>
+                                <option @selected(old('tipe') === 'UnHappy Case') value="UnHappy Case">UnHappy Case</option>
+                            </select>
+                            @error('tipe')
+                                <div class='invalid-feedback'>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class='form-group mb-3'>
+                            <label for='link' class='mb-2'>Link</label>
+                            <input type='text' name='link' id='link'
+                                class='form-control @error('link') is-invalid @enderror' value='{{ old('link') }}'>
+                            @error('link')
+                                <div class='invalid-feedback'>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         <div class="form-group text-right">
                             <a href="{{ route('test-case.index', [
                                 'skenario_uuid' => $skenario->uuid,

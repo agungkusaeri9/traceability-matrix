@@ -51,8 +51,35 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class='form-group'>
+                            <label for='tipe'>Tipe</label>
+                            <select name='tipe' id='tipe' class='form-control @error('tipe') is-invalid @enderror'>
+                                <option value='0'>Pilih Tipe</option>
+                                <option @selected($item->tipe === 'Happy Case') value="Happy Case">Happy</option>
+                                <option @selected($item->tipe === 'UnHappy Case') value="UnHappy Case">UnHappy Case</option>
+                            </select>
+                            @error('status')
+                                <div class='invalid-feedback'>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class='form-group mb-3'>
+                            <label for='link' class='mb-2'>Link</label>
+                            <input type='text' name='link' id='link'
+                                class='form-control @error('link') is-invalid @enderror'
+                                value='{{ $item->link ?? old('link') }}'>
+                            @error('link')
+                                <div class='invalid-feedback'>
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         <div class="form-group text-right">
-                            <a href="{{ route('test-case.index') }}" class="btn btn-warning">Batal</a>
+                            <a href="{{ route('test-case.index', [
+                                'skenario_uuid' => $item->skenario->uuid,
+                            ]) }}"
+                                class="btn btn-warning">Batal</a>
                             <button class="btn btn-primary">Update Test Case</button>
                         </div>
                     </form>

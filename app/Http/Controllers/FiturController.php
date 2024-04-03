@@ -117,4 +117,12 @@ class FiturController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function getByProjectId()
+    {
+        if (request()->ajax()) {
+            $data = Fitur::where('project_id', request('project_id'))->orderBy('nama', 'ASC')->get();
+            return response()->json($data);
+        }
+    }
 }

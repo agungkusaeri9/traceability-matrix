@@ -57,9 +57,8 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Test Case</th>
-                                    <th>Tipe</th>
                                     <th>Link</th>
-                                    <th>Status</th>
+                                    <th>Tipe</th>
                                     <th>Status Test Step</th>
                                     @canany(['Test Case Edit', 'Test Case Delete'])
                                         <th>Aksi</th>
@@ -71,17 +70,11 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->tipe }}</td>
                                         <td>{{ $item->link }}</td>
-                                        <td>{!! $item->status() !!}</td>
+                                        <td>{!! $item->tipe() !!}</td>
                                         <td>{!! $item->status_test_step() !!}</td>
                                         @canany(['Test Case Edit', 'Test Case Delete'])
                                             <td>
-                                                @can('Test Case Isi')
-                                                    <a href="{{ route('test-case.isi', $item->uuid) }}"
-                                                        class="btn btn-sm py-2 btn-primary"><i
-                                                            class="typcn typcn-pencil menu-icon"></i></a>
-                                                @endcan
                                                 @can('Test Step Index')
                                                     <a href="{{ route('test-step.index', [
                                                         'test_case_uuid' => $item->uuid,

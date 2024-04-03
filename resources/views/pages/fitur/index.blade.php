@@ -61,7 +61,7 @@
                                     <th>Success</th>
                                     <th>Failed</th>
                                     <th>Not Tested</th>
-                                    @canany(['Fitur Edit', 'Fitur Delete'])
+                                    @canany(['Fitur Edit', 'Fitur Delete', 'Skenario Index'])
                                         <th>Aksi</th>
                                     @endcanany
                                 </tr>
@@ -76,9 +76,9 @@
                                         <td>0%</td>
                                         <td>0%</td>
                                         <td>0%</td>
-                                        @canany(['Fitur Edit', 'Fitur Delete'])
+                                        @canany(['Fitur Edit', 'Fitur Delete', 'Skenario Index'])
                                             <td>
-                                                @can('Skenario Fitir Index')
+                                                @can('Skenario Index')
                                                     <a href="{{ route('skenario.index', [
                                                         'fitur_uuid' => $item->uuid,
                                                     ]) }}"

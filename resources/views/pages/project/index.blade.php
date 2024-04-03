@@ -40,14 +40,18 @@
                                                         class="btn btn-sm py-2 btn-info"> <i
                                                             class="typcn typcn-edit menu-icon"></i></a>
                                                 @endcan
-                                                <a href="{{ route('project-team.index', $item->uuid) }}"
-                                                    class="btn btn-sm py-2 btn-success" title="Tim"> <i
-                                                        class="typcn typcn-user-add-outline menu-icon"></i></a>
-                                                <a href="{{ route('fitur.index', [
-                                                    'project_uuid' => $item->uuid,
-                                                ]) }}"
-                                                    title="Fitur" class="btn btn-sm py-2 btn-secondary"> <i
-                                                        class="typcn typcn-star-outline menu-icon"></i></a>
+                                                @can('Project Team')
+                                                    <a href="{{ route('project-team.index', $item->uuid) }}"
+                                                        class="btn btn-sm py-2 btn-success" title="Tim"> <i
+                                                            class="typcn typcn-user-add-outline menu-icon"></i></a>
+                                                @endcan
+                                                @can('Fitur Index')
+                                                    <a href="{{ route('fitur.index', [
+                                                        'project_uuid' => $item->uuid,
+                                                    ]) }}"
+                                                        title="Fitur" class="btn btn-sm py-2 btn-secondary"> <i
+                                                            class="typcn typcn-star-outline menu-icon"></i></a>
+                                                @endcan
                                                 @can('Project Delete')
                                                     <form action="javascript:void(0)" method="post" class="d-inline"
                                                         id="formDelete">

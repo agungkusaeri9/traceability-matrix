@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <h4 class=" mb-3"> <a
                             href="{{ route('test-case.index', [
-                                'test_case_uuid' => $test_case->uuid,
+                                'skenario_uuid' => $test_case->skenario->uuid,
                             ]) }}"
                             class="text-decoration-none text-dark">
                             <i class="typcn typcn-arrow-left menu-icon"></i> Kembali
@@ -85,11 +85,6 @@
                                         <td>{!! $item->status() !!}</td>
                                         @canany(['Test Step Edit', 'Test Step Delete'])
                                             <td>
-                                                @can('Test Step Isi')
-                                                    <a href="{{ route('test-step.isi', $item->uuid) }}"
-                                                        class="btn btn-sm py-2 btn-primary"><i
-                                                            class="typcn typcn-pencil menu-icon"></i></a>
-                                                @endcan
                                                 @can('Test Step Edit')
                                                     <a href="{{ route('test-step.edit', $item->uuid) }}"
                                                         class="btn btn-sm py-2 btn-info"><i

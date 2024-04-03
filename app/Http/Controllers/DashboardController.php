@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\BugReport;
+use App\Models\Project;
+use App\Models\Repository;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -18,9 +21,10 @@ class DashboardController extends Controller
     public function index()
     {
         $count = [
+            'project' => Project::count(),
             'user' => User::count(),
-            'role' => Role::count(),
-            'permission' => Permission::count()
+            'bug' => BugReport::whereIn('status', [0, 1])->count(),
+            'repository' => Repository::count()
         ];
         return view('pages.dashboard', [
             'title' => 'Dashboard',

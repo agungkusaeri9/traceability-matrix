@@ -48,7 +48,6 @@ class TestStepController extends Controller
 
             $data = request()->all();
             $data['test_case_id'] = $test_case->id;
-            $data['status'] = 0;
             TestStep::create($data);
             DB::commit();
             return redirect()->route('test-step.index', [
