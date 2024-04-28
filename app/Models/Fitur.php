@@ -29,4 +29,59 @@ class Fitur extends Model
     {
         return $this->hasMany(Skenario::class, 'fitur_id', 'id');
     }
+
+    public function total_test_case()
+    {
+        $happyCaseCount = $this->skenario->flatMap->test_case
+            ->count();
+
+        return $happyCaseCount;
+    }
+    public function success()
+    {
+        // Mengambil semua test_case yang terkait dengan skenario-skenario dari Fitur ini
+        $test_case = $this->skenario->flatMap(function ($skenario) {
+            return $skenario->test_case;
+        });
+
+        $jml = 0;
+        foreach ($test_case as $tc) {
+            if ($tc->status_test_step1() === 'success') {
+                $jml = $jml + 1;
+            }
+        }
+        return $jml * (100 / $this->total_test_case()) . '%';
+    }
+
+    public function failed()
+    {
+        // Mengambil semua test_case yang terkait dengan skenario-skenario dari Fitur ini
+        $test_case = $this->skenario->flatMap(function ($skenario) {
+            return $skenario->test_case;
+        });
+
+        $jml = 0;
+        foreach ($test_case as $tc) {
+            if ($tc->status_test_step1() === 'failed') {
+                $jml = $jml + 1;
+            }
+        }
+        return $jml * (100 / $this->total_test_case()) . '%';
+    }
+
+    public function notTested()
+    {
+        // Mengambil semua test_case yang terkait dengan skenario-skenario dari Fitur ini
+        $test_case = $this->skenario->flatMap(function ($skenario) {
+            return $skenario->test_case;
+        });
+
+        $jml = 0;
+        foreach ($test_case as $tc) {
+            if ($tc->status_test_step1() === 'not tested') {
+                $jml = $jml + 1;
+            }
+        }
+        return $jml * (100 / $this->total_test_case()) . '%';
+    }
 }

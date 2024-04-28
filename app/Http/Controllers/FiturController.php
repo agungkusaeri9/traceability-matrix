@@ -25,7 +25,14 @@ class FiturController extends Controller
         } else {
             $items = [];
         }
-        $data_project = Project::orderBy('nama', 'ASC')->get();
+
+        $projects = Project::orderBy('nama', 'ASC');
+        if (auth()->user()->getPermissions('Project By User')) {
+            $projects->whereHas('teams', function ($team) {
+                $team->where('user_id', auth()->user()->id);
+            });
+        }
+        $data_project = $projects->get();
         return view('pages.fitur.index', [
             'title' => 'Fitur',
             'items' => $items,

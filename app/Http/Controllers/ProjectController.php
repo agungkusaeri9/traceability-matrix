@@ -18,7 +18,13 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $items = Project::orderBy('nama', 'ASC')->get();
+        $projects = Project::orderBy('nama', 'ASC');
+        if (auth()->user()->getPermissions('Project By User')) {
+            $projects->whereHas('teams', function ($team) {
+                $team->where('user_id', auth()->user()->id);
+            });
+        }
+        $items = $projects->get();
         return view('pages.project.index', [
             'title' => 'Project',
             'items' => $items

@@ -72,10 +72,10 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->skenario->count() }}</td>
-                                        <td>{{ $item->skenario->count('test_case') }}</td>
-                                        <td>0%</td>
-                                        <td>0%</td>
-                                        <td>0%</td>
+                                        <td>{{ $item->total_test_case() }}</td>
+                                        <td>{{ $item->success() }}</td>
+                                        <td>{{ $item->failed() }}</td>
+                                        <td>{{ $item->notTested() }}</td>
                                         @canany(['Fitur Edit', 'Fitur Delete', 'Skenario Index'])
                                             <td>
                                                 @can('Skenario Index')

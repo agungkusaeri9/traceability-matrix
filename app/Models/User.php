@@ -54,4 +54,11 @@ class User extends Authenticatable
             return asset('assets/images/faces/face29.png');
         }
     }
+
+    public function getPermissions($permission)
+    {
+        return $this->roles->map(function ($role) {
+            return $role->permissions;
+        })->collapse()->unique()->where('name', $permission)->first();
+    }
 }

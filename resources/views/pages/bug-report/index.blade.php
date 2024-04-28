@@ -14,6 +14,7 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
+                                    <th>Tanggal</th>
                                     <th>Project</th>
                                     <th>Fitur</th>
                                     <th>Temuan</th>
@@ -29,6 +30,7 @@
                                 @foreach ($items as $item)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->created_at->translatedFormat('d F Y H:i:s') }}</td>
                                         <td>{{ $item->project->nama }}</td>
                                         <td>{{ $item->fitur->nama }}</td>
                                         <td>{{ $item->temuan }}</td>

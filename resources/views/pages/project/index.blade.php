@@ -18,8 +18,7 @@
                                     <th>Assign Date</th>
                                     <th>Deksirpsi</th>
                                     <th>Status</th>
-                                    <th>Presentase</th>
-                                    @canany(['Project Edit', 'Project Delete'])
+                                    @canany(['Project Edit', 'Project Delete', 'Fitur Index'])
                                         <th>Aksi</th>
                                     @endcanany
                                 </tr>
@@ -32,8 +31,7 @@
                                         <td>{{ $item->assign_date->translatedFormat('d F Y') }}</td>
                                         <td>{{ $item->deskripsi }}</td>
                                         <td>{{ $item->status() }}</td>
-                                        <td>{{ $item->presentase() }}</td>
-                                        @canany(['Project Edit', 'Project Delete'])
+                                        @canany(['Project Edit', 'Project Delete', 'Fitur Index'])
                                             <td>
                                                 @can('Project Edit')
                                                     <a href="{{ route('project.edit', $item->uuid) }}"
